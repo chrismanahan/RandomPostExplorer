@@ -25,7 +25,16 @@
 
 import OpenSSL
 
+private typealias passwordCallbackFunc = @convention(c) (UnsafeMutablePointer<Int8>, Int32, Int32, UnsafeMutablePointer<Void>) -> Int32
+
 public class NetTCPSSL : NetTCP {
+	
+	public static var opensslVersionText : String {
+		return OPENSSL_VERSION_TEXT
+	}
+	public static var opensslVersionNumber : Int {
+		return OPENSSL_VERSION_NUMBER
+	}
 	
 	public class X509 {
 		
@@ -71,9 +80,17 @@ public class NetTCPSSL : NetTCP {
 				
 				self.initSocket()
 
-				// !FIX!
-//				SSL_CTX_set_default_passwd_cb(self.sslCtx!, passwordCallback)
+				let opaqueMe = UnsafeMutablePointer<Void>(Unmanaged.passUnretained(self).toOpaque())
+				let callback: passwordCallbackFunc = {
+					
+					(buf, size, rwflag, userData) -> Int32 in
+
+					let crl = Unmanaged<NetTCPSSL>.fromOpaque(COpaquePointer(userData)).takeUnretainedValue()
+					return crl.passwordCallback(buf, size: size, rwflag: rwflag)
+				}
 				
+				SSL_CTX_set_default_passwd_cb_userdata(self.sslCtx!, opaqueMe)
+				SSL_CTX_set_default_passwd_cb(self.sslCtx!, callback)
 			}
 		}
 	}
@@ -140,7 +157,7 @@ public class NetTCPSSL : NetTCP {
 	}
 	
 	public var usingSSL: Bool {
-		return self.sslCtx != nil
+		return self.ssl != nil
 	}
 	
 	public override init() {
@@ -163,7 +180,7 @@ public class NetTCPSSL : NetTCP {
 		}
 	}
 	
-	func passwordCallback(buf:UnsafeMutablePointer<Int8>, size:Int32, rwflag:Int32, userData:UnsafeMutablePointer<Void>) -> Int32 {
+	func passwordCallback(buf:UnsafeMutablePointer<Int8>, size:Int32, rwflag:Int32) -> Int32 {
 		let chars = self.keyFilePassword.utf8
 		memmove(buf, self.keyFilePassword, chars.count + 1)
 		return Int32(chars.count)
@@ -182,9 +199,6 @@ public class NetTCPSSL : NetTCP {
 		SSL_CTX_ctrl(sslCtx, SSL_CTRL_SET_ECDH_AUTO, 1, nil)
 		SSL_CTX_ctrl(sslCtx, SSL_CTRL_MODE, SSL_MODE_AUTO_RETRY, nil)
 		SSL_CTX_ctrl(sslCtx, SSL_CTRL_OPTIONS, SSL_OP_ALL, nil)
-		
-		self.ssl = SSL_new(sslCtx)
-		SSL_set_fd(self.ssl!, self.fd.fd)
 	}
 	
 	public func errorCode() -> UInt {
@@ -317,19 +331,13 @@ public class NetTCPSSL : NetTCP {
 			closure(false)
 			return
 		}
-		guard let sslCtx = self.sslCtx else {
-			closure(false)
-			return
+		
+		if self.ssl == nil {
+			self.ssl = SSL_new(self.sslCtx!)
+			SSL_set_fd(self.ssl!, self.fd.fd)
 		}
-		guard sslCtx != nil else {
-			closure(false)
-			return
-		}
+		
 		guard let ssl = self.ssl else {
-			closure(false)
-			return
-		}
-		guard ssl != nil else {
 			closure(false)
 			return
 		}

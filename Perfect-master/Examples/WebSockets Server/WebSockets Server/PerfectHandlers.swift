@@ -37,7 +37,7 @@ public func PerfectServerModuleInit() {
 	Routing.Routes["*"] = { _ in return StaticFileHandler() }
 	
 	// Add the endpoint for the WebSocket example system
-	Routing.Routes["GET", "/connect"] = {
+	Routing.Routes["GET", "/echo"] = {
 		_ in
 		
 		// To add a WebSocket service, set the handler to WebSocketHandler.
@@ -46,7 +46,7 @@ public func PerfectServerModuleInit() {
 			(request: WebRequest, protocols: [String]) -> WebSocketSessionHandler? in
 			
 			// Check to make sure the client is requesting our "echo" service.
-			guard protocols.contains("connect") else {
+			guard protocols.contains("echo") else {
 				return nil
 			}
 			
@@ -54,7 +54,6 @@ public func PerfectServerModuleInit() {
 			return EchoHandler()
 		})
 	}
-
 }
 
 // A WebSocket service handler must impliment the `WebSocketSessionHandler` protocol.
@@ -73,7 +72,7 @@ class EchoHandler: WebSocketSessionHandler {
 	
 	// The name of the super-protocol we implement.
 	// This is optional, but it should match whatever the client-side WebSocket is initialized with.
-	let socketProtocol: String? = "connect"
+	let socketProtocol: String? = "echo"
 	
 	// This function is called by the WebSocketHandler once the connection has been established.
 	func handleSession(request: WebRequest, socket: WebSocket) {

@@ -28,7 +28,7 @@ public protocol WebConnection {
 	/// The TCP based connection
 	var connection: NetTCP { get }
 	/// The parameters sent by the client
-	var requestParams: Dictionary<String, String> { get }
+	var requestParams: [String:String] { get set }
 	/// Any non mime based request body data
 	var stdin: [UInt8]? { get }
 	/// Parsed mime based body data
@@ -42,7 +42,7 @@ public protocol WebConnection {
 	func writeHeaderLine(h: String)
 	/// Send header bytes to the client.
 	func writeHeaderBytes(b: [UInt8])
-	/// Write body bytes ot the client. Any pending header data will be written first.
+	/// Write body bytes to the client. Any pending header data will be written first.
 	func writeBodyBytes(b: [UInt8])
 	
 }

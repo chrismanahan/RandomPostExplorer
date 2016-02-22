@@ -2,17 +2,23 @@
 
 OS = $(shell uname)
 SWIFTC = swift
+CC = clang
+CXX = clang
 MODULE_NAME = PerfectLib
-DEBUG = -g -Onone -Xcc -DDEBUG=1
+DEBUG = -g -Onone -D DEBUG
 Linux_INSTALL_PATH = /usr/local/lib
 Darwin_INSTALL_PATH = /Library/Frameworks
+
+LSB_OS = $(shell lsb_release -si)
+LSB_VER = $(shell lsb_release -sr)
 
 INSTALL_PATH = $($(OS)_INSTALL_PATH)
 
 Darwin_SWIFTC_FLAGS = -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
 Linux_SWIFTC_FLAGS = -I linked/LinuxBridge
+Linux_EXTRA_FLAGS = -D $(LSB_OS)_$(subst .,_,$(LSB_VER))
 
-SWIFTC_FLAGS = $(DEBUG) -emit-module -I /usr/include/ -I linked/LibEvent -I linked/OpenSSL_Linux -I linked/ICU -I linked/SQLite3 -I linked/cURL_Linux \
+SWIFTC_FLAGS = $(DEBUG) $($(OS)_EXTRA_FLAGS) -emit-module -I /usr/include/ -I linked/LibEvent -I linked/OpenSSL_Linux -I linked/ICU -I linked/SQLite3 -I linked/cURL_Linux \
 	-module-cache-path $(MODULE_CACHE_PATH) -module-name $(MODULE_NAME) $($(OS)_SWIFTC_FLAGS)
 
 PERFECT_SRC = ICU.swift NetNamedPipe.swift File.swift Threading.swift LibEvent.swift Bytes.swift FastCGI.swift \
@@ -20,7 +26,8 @@ PERFECT_SRC = ICU.swift NetNamedPipe.swift File.swift Threading.swift LibEvent.s
 	FastCGIServer.swift Net.swift Utilities.swift MimeReader.swift NetTCP.swift SessionManager.swift \
 	WebRequest.swift HTTPServer.swift MimeType.swift PageHandler.swift SQLite.swift WebResponse.swift \
 	Dir.swift Mustache.swift PerfectError.swift SysProcess.swift DynamicLoader.swift JSON.swift Utilities-Server.swift \
-	Routing.swift StaticFileHandler.swift WebSocketHandler.swift JSONConvertible.swift cURL.swift
+	Routing.swift StaticFileHandler.swift WebSocketHandler.swift JSONConvertible.swift cURL.swift \
+	HPACK.swift HTTP2.swift NotificationPusher.swift
 
 PERFECT_OBJ = $(addsuffix .o, $(basename $(PERFECT_SRC))) LinuxBridge.o util.o linked/cURL_Linux/curl_support.o
 
@@ -73,5 +80,5 @@ clean:
 		-emit-module-doc-path ./tmp/$(subst .o,.swiftdoc,$@) \
 		-emit-dependencies-path ./tmp/$(subst .swift,.d,$<) \
 		-emit-reference-dependencies-path ./tmp/$(subst .swift,.swiftdeps,$<) \
-		$(SWIFTC_FLAGS) $(SWIFTC_FLAGS) \
+		$(SWIFTC_FLAGS) \
 		-o $@
