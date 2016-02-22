@@ -8,9 +8,13 @@
 
 import Foundation
 import PerfectLib
+import MySQL
 
-let DB_PATH = PerfectServer.staticPerfectServer.homeDir() + serverSQLiteDBs + "PWSDB"
-
+let HOST = "127.0.0.1"
+let USER = "root"
+let PASSWORD = "password" // make your password something MUCH safer!!!
+let SCHEMA = "RandomPosts"
+let POST_TABLE = "Post"
 
 // This function is required. The Perfect framework expects to find this function
 // to do initialization
@@ -30,44 +34,91 @@ public func PerfectServerModuleInit() {
         return PostHandler()
     }
     
-    do {
-        let sqlite = try SQLite(DB_PATH)
-        try sqlite.execute("CREATE TABLE IF NOT EXISTS pws (id INTEGER PRIMARY KEY, content STRING)")
-    } catch {
-        print("Failure creating database at " + DB_PATH)
+    // initialize mysql
+    let mysql = MySQL()
+    let connected = mysql.connect(HOST, user: USER, password: PASSWORD)
+    guard connected else {
+        // verify we connected successfully
+        print(mysql.errorMessage())
+        return
+    }
+    
+    // defering close ensure the connection is close when we're done here.
+    defer {
+        mysql.close()
+    }
+    
+    // create DB schema if needed 
+    var schemaExists = mysql.selectDatabase(SCHEMA)
+    if !schemaExists {
+        schemaExists = mysql.query("CREATE SCHEMA \(SCHEMA) DEFAULT CHARACTER SET utf8mb4;")
+    }
+    
+    let tableSuccess = mysql.query("CREATE TABLE IF NOT EXISTS \(POST_TABLE) (id INT(11) AUTO_INCREMENT, Content varchar(255), PRIMARY KEY (id))")
+    
+    guard schemaExists && tableSuccess else {
+        print(mysql.errorMessage())
+        return
     }
 }
 
 class GetPostsHandler: RequestHandler {
     func handleRequest(request: WebRequest, response: WebResponse) {
-        do {
-            let sqlite = try SQLite(DB_PATH)
-            defer {
-                sqlite.close()  // defer ensures we close our db connection at the end of this request
-            }
+        
+        // open mysql connection
+        let mysql = MySQL()
+        let connected = mysql.connect(HOST, user: USER, password: PASSWORD)
+        guard connected else {
+            print(mysql.errorMessage())
+            response.setStatus(500, message: "Server Error")
+            response.requestCompletedCallback()
+            return
+        }
+        
+        mysql.selectDatabase(SCHEMA)
+        defer {
+            mysql.close()
+        }
+        
+        // run our select query     
+        let querySuccess = mysql.query("SELECT Content FROM \(POST_TABLE) ORDER BY RAND() LIMIT 1")
+        // make sure the query worked
+        guard querySuccess else {
+            print(mysql.errorMessage())
+            response.setStatus(500, message: "Server Error")
+            response.requestCompletedCallback()
+            return
+        }
+        
+        // now fetch the results
+        let results = mysql.storeResults()!
+        // we check for one row because we had the LIMIT 1 in our query
+        guard results.numRows() == 1 else {
+            print("no rows found")
+            response.setStatus(500, message: "Server Error")
+            response.requestCompletedCallback()
+            return
+        }
+        
+        results.forEachRow { row in
+            // each row is a of type MySQL.MySQL.Results.Type.Element
+            // which is just a typealias for [String]
+            print("fetched: \(row)")
+            let content = row[0] // element 0 will be Content because it was the first (and only) colum in our query
             
-            // query the db for a random post
-            try sqlite.forEachRow("SELECT content FROM pws ORDER BY RANDOM() LIMIT 1") {
-                (statement: SQLiteStmt, i:Int) -> () in
+            do {
+                // encode the random content into JSON
+                let jsonEncoder = JSONEncoder()
+                let respString = try jsonEncoder.encode(["content": content])
                 
-                do {
-                    let content = statement.columnText(0)
-                    
-                    // encode the random content into JSON
-                    let jsonEncoder = JSONEncoder()
-                    let respString = try jsonEncoder.encode(["content": content])
-                    
-                    // write the JSON to the response body
-                    response.appendBodyString(respString)
-                    response.addHeader("Content-Type", value: "application/json")
-                    response.setStatus(200, message: "OK")
-                } catch {
-                    response.setStatus(400, message: "Bad Request")
-                }
+                // write the JSON to the response body
+                response.appendBodyString(respString)
+                response.addHeader("Content-Type", value: "application/json")
+                response.setStatus(200, message: "OK")
+            } catch {
+                response.setStatus(500, message: "Server Error")
             }
-            
-        } catch {
-            response.setStatus(400, message: "Bad Request")
+
         }
         
         response.requestCompletedCallback()
@@ -97,18 +148,30 @@ class PostHandler: RequestHandler {
                 return
             }
             
-            // put the content into our db
-            let sqlite = try SQLite(DB_PATH)
-            defer {
-                sqlite.close()  // defer ensures we close our db connection at the end of this request
+            // open mysql connection
+            let mysql = MySQL()
+            let connected = mysql.connect(HOST, user: USER, password: PASSWORD)
+            guard connected else {
+                print(mysql.errorMessage())
+                response.setStatus(500, message: "Server Error")
+                response.requestCompletedCallback()
+                return
             }
             
-            try sqlite.execute("INSERT INTO pws (content) VALUES (?)", doBindings: {
-                (statement: SQLiteStmt) -> () in
-                
-                try statement.bind(1, content!) // this binds our input string to the first ? in the query
-            })
+            mysql.selectDatabase(SCHEMA)
             
+            defer {
+                mysql.close()
+            }
+
+            let querySuccess = mysql.query("INSERT INTO \(POST_TABLE) (Content) VALUES ('\(content!)')")
+            guard querySuccess else {
+                print(mysql.errorMessage())
+                response.setStatus(500, message: "Server Error")
+                response.requestCompletedCallback()
+                return
+            }
+
             response.setStatus(201, message: "Created")
         } catch {
             print("error decoding json from data: \(reqData)")

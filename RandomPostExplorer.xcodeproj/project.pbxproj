@@ -16,6 +16,7 @@
 		9B548B5E1C7B8E8300F90D3A /* RandomPostExplorerServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B548B5D1C7B8E8300F90D3A /* RandomPostExplorerServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B548B641C7B8E8800F90D3A /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B548B631C7B8E8800F90D3A /* PerfectLib.framework */; };
 		9B548B661C7B8ED500F90D3A /* PerfectHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B548B651C7B8ED500F90D3A /* PerfectHandlers.swift */; };
+		9B548B681C7B92AE00F90D3A /* MySQL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B548B671C7B92AE00F90D3A /* MySQL.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		9B548B5F1C7B8E8300F90D3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B548B631C7B8E8800F90D3A /* PerfectLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerfectLib.framework; path = "Perfect-master/PerfectLib/build/Debug/PerfectLib.framework"; sourceTree = "<group>"; };
 		9B548B651C7B8ED500F90D3A /* PerfectHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerfectHandlers.swift; sourceTree = "<group>"; };
+		9B548B671C7B92AE00F90D3A /* MySQL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MySQL.framework; path = "Perfect-master/Connectors/MySQL/build/Debug/MySQL.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B548B681C7B92AE00F90D3A /* MySQL.framework in Frameworks */,
 				9B548B641C7B8E8800F90D3A /* PerfectLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -57,6 +60,7 @@
 		9B548B341C7B674500F90D3A = {
 			isa = PBXGroup;
 			children = (
+				9B548B671C7B92AE00F90D3A /* MySQL.framework */,
 				9B548B631C7B8E8800F90D3A /* PerfectLib.framework */,
 				9B548B521C7B8E4F00F90D3A /* PerfectLib.framework */,
 				9B548B3F1C7B674500F90D3A /* RandomPostExplorer */,
@@ -362,6 +366,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Perfect-master/PerfectLib/build/Debug",
+					"$(PROJECT_DIR)/Perfect-master/Connectors/MySQL/build/Debug",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = RandomPostExplorerServer/Info.plist;
@@ -394,6 +399,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Perfect-master/PerfectLib/build/Debug",
+					"$(PROJECT_DIR)/Perfect-master/Connectors/MySQL/build/Debug",
 				);
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = RandomPostExplorerServer/Info.plist;
