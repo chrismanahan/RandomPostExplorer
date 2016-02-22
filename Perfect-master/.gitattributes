@@ -1,0 +1,5 @@
+PerfectLib/linked/* linguist-vendored
+Connectors/MongoDB/linked/* linguist-vendored
+Connectors/MySQL/linked/* linguist-vendored
+Connectors/PostgreSQL/linked/* linguist-vendored
+PerfectLib/docs/* linguist-documentation

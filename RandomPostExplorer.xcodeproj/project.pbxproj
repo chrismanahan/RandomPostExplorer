@@ -9,19 +9,29 @@
 /* Begin PBXBuildFile section */
 		9B548B411C7B674500F90D3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B548B401C7B674500F90D3A /* AppDelegate.swift */; };
 		9B548B431C7B674500F90D3A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B548B421C7B674500F90D3A /* ViewController.swift */; };
-		9B548B461C7B674500F90D3A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B548B441C7B674500F90D3A /* Main.storyboard */; };
 		9B548B481C7B674500F90D3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B548B471C7B674500F90D3A /* Assets.xcassets */; };
 		9B548B4B1C7B674500F90D3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B548B491C7B674500F90D3A /* LaunchScreen.storyboard */; };
+		9B548B531C7B8E4F00F90D3A /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B548B521C7B8E4F00F90D3A /* PerfectLib.framework */; };
+		9B548B551C7B8E6B00F90D3A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B548B541C7B8E6B00F90D3A /* Main.storyboard */; };
+		9B548B5E1C7B8E8300F90D3A /* RandomPostExplorerServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B548B5D1C7B8E8300F90D3A /* RandomPostExplorerServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B548B641C7B8E8800F90D3A /* PerfectLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B548B631C7B8E8800F90D3A /* PerfectLib.framework */; };
+		9B548B661C7B8ED500F90D3A /* PerfectHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B548B651C7B8ED500F90D3A /* PerfectHandlers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9B548B3D1C7B674500F90D3A /* RandomPostExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomPostExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B548B401C7B674500F90D3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B548B421C7B674500F90D3A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9B548B451C7B674500F90D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B548B471C7B674500F90D3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B548B4A1C7B674500F90D3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B548B4C1C7B674500F90D3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B548B521C7B8E4F00F90D3A /* PerfectLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerfectLib.framework; path = "Perfect-master/PerfectLib/build/Debug-iphoneos/PerfectLib.framework"; sourceTree = "<group>"; };
+		9B548B541C7B8E6B00F90D3A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9B548B5B1C7B8E8300F90D3A /* RandomPostExplorerServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RandomPostExplorerServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B548B5D1C7B8E8300F90D3A /* RandomPostExplorerServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RandomPostExplorerServer.h; sourceTree = "<group>"; };
+		9B548B5F1C7B8E8300F90D3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B548B631C7B8E8800F90D3A /* PerfectLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PerfectLib.framework; path = "Perfect-master/PerfectLib/build/Debug/PerfectLib.framework"; sourceTree = "<group>"; };
+		9B548B651C7B8ED500F90D3A /* PerfectHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerfectHandlers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +39,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B548B531C7B8E4F00F90D3A /* PerfectLib.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B548B571C7B8E8300F90D3A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B548B641C7B8E8800F90D3A /* PerfectLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,7 +57,10 @@
 		9B548B341C7B674500F90D3A = {
 			isa = PBXGroup;
 			children = (
+				9B548B631C7B8E8800F90D3A /* PerfectLib.framework */,
+				9B548B521C7B8E4F00F90D3A /* PerfectLib.framework */,
 				9B548B3F1C7B674500F90D3A /* RandomPostExplorer */,
+				9B548B5C1C7B8E8300F90D3A /* RandomPostExplorerServer */,
 				9B548B3E1C7B674500F90D3A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				9B548B3D1C7B674500F90D3A /* RandomPostExplorer.app */,
+				9B548B5B1C7B8E8300F90D3A /* RandomPostExplorerServer.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,7 +79,7 @@
 			children = (
 				9B548B401C7B674500F90D3A /* AppDelegate.swift */,
 				9B548B421C7B674500F90D3A /* ViewController.swift */,
-				9B548B441C7B674500F90D3A /* Main.storyboard */,
+				9B548B541C7B8E6B00F90D3A /* Main.storyboard */,
 				9B548B471C7B674500F90D3A /* Assets.xcassets */,
 				9B548B491C7B674500F90D3A /* LaunchScreen.storyboard */,
 				9B548B4C1C7B674500F90D3A /* Info.plist */,
@@ -64,7 +87,28 @@
 			path = RandomPostExplorer;
 			sourceTree = "<group>";
 		};
+		9B548B5C1C7B8E8300F90D3A /* RandomPostExplorerServer */ = {
+			isa = PBXGroup;
+			children = (
+				9B548B5D1C7B8E8300F90D3A /* RandomPostExplorerServer.h */,
+				9B548B5F1C7B8E8300F90D3A /* Info.plist */,
+				9B548B651C7B8ED500F90D3A /* PerfectHandlers.swift */,
+			);
+			path = RandomPostExplorerServer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9B548B581C7B8E8300F90D3A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B548B5E1C7B8E8300F90D3A /* RandomPostExplorerServer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		9B548B3C1C7B674500F90D3A /* RandomPostExplorer */ = {
@@ -84,6 +128,24 @@
 			productReference = 9B548B3D1C7B674500F90D3A /* RandomPostExplorer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9B548B5A1C7B8E8300F90D3A /* RandomPostExplorerServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9B548B601C7B8E8300F90D3A /* Build configuration list for PBXNativeTarget "RandomPostExplorerServer" */;
+			buildPhases = (
+				9B548B561C7B8E8300F90D3A /* Sources */,
+				9B548B571C7B8E8300F90D3A /* Frameworks */,
+				9B548B581C7B8E8300F90D3A /* Headers */,
+				9B548B591C7B8E8300F90D3A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RandomPostExplorerServer;
+			productName = RandomPostExplorerServer;
+			productReference = 9B548B5B1C7B8E8300F90D3A /* RandomPostExplorerServer.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -95,6 +157,9 @@
 				ORGANIZATIONNAME = "Christopher Manahan";
 				TargetAttributes = {
 					9B548B3C1C7B674500F90D3A = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					9B548B5A1C7B8E8300F90D3A = {
 						CreatedOnToolsVersion = 7.2;
 					};
 				};
@@ -113,6 +178,7 @@
 			projectRoot = "";
 			targets = (
 				9B548B3C1C7B674500F90D3A /* RandomPostExplorer */,
+				9B548B5A1C7B8E8300F90D3A /* RandomPostExplorerServer */,
 			);
 		};
 /* End PBXProject section */
@@ -122,9 +188,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B548B551C7B8E6B00F90D3A /* Main.storyboard in Resources */,
 				9B548B4B1C7B674500F90D3A /* LaunchScreen.storyboard in Resources */,
 				9B548B481C7B674500F90D3A /* Assets.xcassets in Resources */,
-				9B548B461C7B674500F90D3A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B548B591C7B8E8300F90D3A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,17 +213,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9B548B561C7B8E8300F90D3A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B548B661C7B8ED500F90D3A /* PerfectHandlers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9B548B441C7B674500F90D3A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9B548B451C7B674500F90D3A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9B548B491C7B674500F90D3A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -247,6 +320,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Perfect-master/PerfectLib/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = RandomPostExplorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manahan.RandomPostExplorer;
@@ -258,10 +335,77 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Perfect-master/PerfectLib/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = RandomPostExplorer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manahan.RandomPostExplorer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9B548B611C7B8E8300F90D3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(CONFIGURATION_BUILD_DIR)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Perfect-master/PerfectLib/build/Debug",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = RandomPostExplorerServer/Info.plist;
+				INSTALL_PATH = /PerfectLibraries;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manahan.RandomPostExplorerServer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9B548B621C7B8E8300F90D3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(CONFIGURATION_BUILD_DIR)";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Perfect-master/PerfectLib/build/Debug",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = RandomPostExplorerServer/Info.plist;
+				INSTALL_PATH = /PerfectLibraries;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manahan.RandomPostExplorerServer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = NO;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -282,6 +426,15 @@
 			buildConfigurations = (
 				9B548B501C7B674500F90D3A /* Debug */,
 				9B548B511C7B674500F90D3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9B548B601C7B8E8300F90D3A /* Build configuration list for PBXNativeTarget "RandomPostExplorerServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9B548B611C7B8E8300F90D3A /* Debug */,
+				9B548B621C7B8E8300F90D3A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
