@@ -10,10 +10,15 @@ import Foundation
 import PerfectLib
 import MySQL
 
+// host where mysql server is
 let HOST = "127.0.0.1"
+// mysql username
 let USER = "root"
+// mysql root password
 let PASSWORD = "password" // make your password something MUCH safer!!!
+// database name
 let SCHEMA = "RandomPosts"
+// table name
 let POST_TABLE = "Post"
 
 // This function is required. The Perfect framework expects to find this function
@@ -75,6 +80,7 @@ class GetPostsHandler: RequestHandler {
             return
         }
         
+        // select the db we're using
         mysql.selectDatabase(SCHEMA)
         defer {
             mysql.close()
@@ -158,6 +164,7 @@ class PostHandler: RequestHandler {
                 return
             }
             
+            // select our db
             mysql.selectDatabase(SCHEMA)
             
             defer {
@@ -166,6 +173,7 @@ class PostHandler: RequestHandler {
 
             let querySuccess = mysql.query("INSERT INTO \(POST_TABLE) (Content) VALUES ('\(content!)')")
             guard querySuccess else {
+                // query failed, report error
                 print(mysql.errorMessage())
                 response.setStatus(500, message: "Server Error")
                 response.requestCompletedCallback()
